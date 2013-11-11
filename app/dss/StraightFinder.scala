@@ -12,21 +12,16 @@ object StraightFinder {
   def straight(facts: List[Fact], rules: List[Rule], desiredFactName: String): Option[Fact] = {
     executeRule(facts, rules) match {
       case None => return None
-      case Some(fact@Fact(name:String, _)) => {
-        println("  Added fact: " + fact)
+      case Some(fact@Fact(name: String, _)) => {
         if (name == desiredFactName) return Some(fact)
-        else straight(fact :: facts, rules,desiredFactName)
+        else straight(fact :: facts, rules, desiredFactName)
       }
     }
   }
 
   def executeRule(facts: List[Fact], rules: List[Rule]): Option[Fact] = {
     if (rules.isEmpty) return None
-    println("    Trying rule: " + rules.head)
-    if (!facts.contains(rules.head.right) && ruleSatisfied(facts, rules.head)) {
-      println("    Applied rule: "+rules.head)
-      return Some(rules.head.right)
-    }
+    if (!facts.contains(rules.head.right) && ruleSatisfied(facts, rules.head)) return Some(rules.head.right)
     executeRule(facts, rules.tail)
   }
 
