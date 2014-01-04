@@ -1,4 +1,4 @@
-package dss
+package src.dss
 
 import RuleSatisfiedTester._
 
@@ -11,9 +11,9 @@ object StraightFinder {
 
   def straight(facts: List[Fact], rules: List[Rule], desiredFactName: String): Option[Fact] = {
     executeRule(facts, rules) match {
-      case None => return None
+      case None => None
       case Some(fact@Fact(name: String, _)) => {
-        if (name == desiredFactName) return Some(fact)
+        if (name == desiredFactName) Some(fact)
         else straight(fact :: facts, rules, desiredFactName)
       }
     }

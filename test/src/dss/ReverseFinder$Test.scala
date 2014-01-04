@@ -1,10 +1,8 @@
-package dss
+package src.dss
 
 
 import org.specs2.mutable.Specification
-import dss.ReverseFinder._
-import dss.Fact
-import dss.Rule
+import ReverseFinder._
 
 /**
  * User: Dmytro Vynokurov

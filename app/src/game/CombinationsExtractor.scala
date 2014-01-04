@@ -1,6 +1,6 @@
-package model
+package src.game
 
-import model.BasicCombinationsExtractor._
+import src.game.BasicCombinationsExtractor._
 import scala.Some
 
 /**

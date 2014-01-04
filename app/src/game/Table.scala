@@ -1,4 +1,4 @@
-package model
+package src.game
 
 /**
  * User: Dmitry
@@ -10,5 +10,6 @@ case class Table(cards: List[Card]) {
 
   def isEmpty = cards.size == 0
 }
+object EmptyTable extends Table(Nil)
 
 

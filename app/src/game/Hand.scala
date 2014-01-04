@@ -1,4 +1,4 @@
-package model
+package src.game
 
 import CombinationsExtractor._
 /**

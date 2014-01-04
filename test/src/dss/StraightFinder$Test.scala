@@ -1,9 +1,7 @@
-package dss
+package src.dss
 
 import org.specs2.mutable.Specification
-import dss.Fact
-import dss.Rule
-import dss.StraightFinder._
+import StraightFinder._
 
 /**
  * User: Dmytro Vynokurov

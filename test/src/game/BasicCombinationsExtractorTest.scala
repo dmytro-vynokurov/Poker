@@ -1,4 +1,4 @@
-package model
+package src.game
 
 import org.specs2.mutable.Specification
 import BasicCombinationsExtractor._
