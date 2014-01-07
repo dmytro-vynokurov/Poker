@@ -1,6 +1,7 @@
-package src.game
+package logic.game
 
 import CombinationsExtractor._
+
 /**
  * User: Dmitry
  * Date: 8/19/13

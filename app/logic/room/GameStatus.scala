@@ -1,4 +1,4 @@
-package src.room
+package logic.room
 
 /**
  * User: Dmytro Vynokurov

@@ -1,0 +1,12 @@
+#show_area {
+    background-color: green;
+    float:left;
+}
+#table_cards li {
+    display: inline;
+    list-style-type: none;
+}
+#command_area {
+    background-color: saddlebrown;
+    float: right;
+}

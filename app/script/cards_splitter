@@ -1,0 +1,40 @@
+#This script was used for splitting image with 52 game cards into 52 separate card images for Poker project
+
+import matplotlib.image as mpimg
+
+suits = [
+    'Clubs',
+    'Spades',
+    'Hearts',
+    'Diamonds'
+]
+
+numbers = [
+    'Ace',
+    'Two',
+    'Three',
+    'Four',
+    'Five',
+    'Six',
+    'Seven',
+    'Eight',
+    'Nine',
+    'Ten',
+    'Jack',
+    'Queen',
+    'King'
+]
+
+imgRGB = mpimg.imread('/home/dmytro/Development/Projects/Poker/public/images/classic-playing-cards.png')
+
+print imgRGB.shape
+
+
+for i in range(4):
+    for j in range(13):
+        vs = i * 96 + 2 * i + 1
+        vf = (i + 1) * 96 + 2 * i + 1
+        hs = j * 72 + j + 1
+        hf = (j + 1) * 72 + j + 1
+        small = imgRGB[vs:vf, hs:hf]
+        mpimg.imsave('/home/dmytro/Development/Projects/Poker/public/images/cards/'+numbers[j] + 'Of' + suits[i] + '.png', small)

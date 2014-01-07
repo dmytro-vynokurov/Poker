@@ -1,6 +1,6 @@
-package src.room
+package logic.room
 
-import src.room.Blind.Blind
+import logic.room.Blind.Blind
 
 /**
  * User: Dmytro Vynokurov

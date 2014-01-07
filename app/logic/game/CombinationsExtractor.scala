@@ -1,6 +1,7 @@
-package src.game
+package logic.game
 
-import src.game.BasicCombinationsExtractor._
+import logic.game.Combination._
+import logic.game.BasicCombinationsExtractor._
 import scala.Some
 
 /**

@@ -1,4 +1,4 @@
-package src.dss
+package logic.dss
 
 import RuleSatisfiedTester._
 

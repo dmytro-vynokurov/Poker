@@ -1,9 +1,9 @@
-package src.room
+package logic.room
 
-import src.game._
+import logic.game._
 import akka.actor.{ActorRef, Actor}
-import src.room.GameEvents._
-import src.room.Blind._
+import logic.room.GameEvents._
+import logic.room.Blind._
 
 
 /**

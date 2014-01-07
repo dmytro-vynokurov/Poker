@@ -1,9 +1,9 @@
-package src.room
+package logic.room
 
 
-import src.game.{Table, Pocket}
+import logic.game.{Table, Pocket}
 import akka.actor.{ActorRef, Actor}
-import src.room.Blind.Blind
+import logic.room.Blind.Blind
 
 /**
  * User: Dmytro Vynokurov

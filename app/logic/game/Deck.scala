@@ -1,6 +1,8 @@
-package src.game
+package logic.game
 
 import scala.util.Random
+import logic.game.Suit._
+import logic.game.Number._
 
 
 /**

@@ -1,4 +1,8 @@
-package src.game
+package logic.game
+
+import logic.game.Number._
+import logic.game.Suit
+import logic.game.Combination._
 
 /**
  * User: Dmitry

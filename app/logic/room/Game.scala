@@ -1,8 +1,8 @@
-package src.room
+package logic.room
 
-import src.game.{EmptyTable, Pocket, Deck, Table}
+import logic.game.{EmptyTable, Pocket, Deck, Table}
 import akka.actor.{ActorRef, Actor}
-import src.room.GameEvents._
+import logic.room.GameEvents._
 import Blind._
 
 /**

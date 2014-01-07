@@ -1,4 +1,5 @@
-package src.game
+package logic.game
+
 
 /**
  * User: Dmitry
