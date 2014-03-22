@@ -1,5 +1,4 @@
-@(table:List[logic.game.Card])
-@import views.Util.CardFilename
+@(table:List[logic.game.Card],players:List[views.Util.PlayerView],betForm:Form[views.forms.BetForm])
 
 <html>
     <head>
@@ -9,21 +8,33 @@
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
     </head>
     <body>
+        <div id ="command_area">
+            Start game<br/>
+            Bet 200<br/>
+            @helper.form(action = routes.Application.bet()){
+                @helper.inputText(betForm("amount"),'_label->"Bet")
+            }
+            Call 200<br/>
+            Fold<br/>
+            Check<br/>
+        </div>
         <div id="show_area">
             <div id="table">
                 <ul id="table_cards">
                 @for(card <- table){
-                    <li>@card_image(table.head)</li>
+                    <li class="card">@card_image(card)</li>
                 }
                 </ul>
             </div>
+            <form method="get"  action="/"><input type="submit" value="GET"/></form>
+            <form method="post" action="/"><input type="submit" value="POST"/></form>
             <div id="hands">
-                Hands area
+            <ul>
+                @for(player <- players){
+                    <li>@player_hand(player)</li>
+                }
+            </ul>
             </div>
-        </div>
-        <div id ="command_area">
-            Command area
         </div>
     </body>
 </html>
-

@@ -1,12 +1,18 @@
+body {
+    margin: -16px 0 0;
+}
 #show_area {
     background-color: green;
-    float:left;
+    height: 1000px;
 }
-#table_cards li {
+#show_area li{
     display: inline;
     list-style-type: none;
 }
+
 #command_area {
     background-color: saddlebrown;
     float: right;
+    width:220px;
+    height: 300px;
 }

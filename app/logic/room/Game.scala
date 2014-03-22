@@ -14,7 +14,7 @@ case class Game(ordering:List[ActorRef],playerNames:List[String],blindAmount: In
   require(ordering.size>=2)
   require(ordering.size == playerNames.size)
 
-  import Decision._
+  import RoundDecision._
 
   val deck = Deck()
   var table:Table = EmptyTable
@@ -41,7 +41,7 @@ case class Game(ordering:List[ActorRef],playerNames:List[String],blindAmount: In
 
   def startGame = {
     for(player<-ordering) {
-      player ! StartGame(playerMap)
+      player ! GameStarted(playerMap)
       player ! SetBlindAmount(blindAmount)
     }
   }
@@ -55,15 +55,26 @@ case class Game(ordering:List[ActorRef],playerNames:List[String],blindAmount: In
     for(player<-ordering) player ! DealPocket(Pocket(deck.dealCard,deck.dealCard))
   }
 
-  def placeBets:Decision = {
-    for{
-      player<-playerMap.filter(_._2.inGame)
-    } {
-      player._1 ! MakeDecision
-      receive
-      if(playerMap.values.count(_.inGame)==1) return STOP
+  def placeBets:RoundDecision = {
+    def nextPlayer(player:ActorRef):ActorRef = ordering.dropWhile(_ != player).drop(1).find(playerMap(_).inGame) match {
+      case Some(playerRef) => playerRef
+      case None => ordering.takeWhile(_!=player).find(playerMap(_).inGame).get
     }
-    CONTINUE
+    def stopRound:Boolean = {
+      val inGamePlayers = ordering.filter(playerMap(_).inGame)
+      if (inGamePlayers.size == 1) return true
+      val commonDecision = playerMap(inGamePlayers.head).lastDecision
+      inGamePlayers.map(playerMap(_)).forall(_.lastDecision==commonDecision)
+    }
+
+    var player = ordering.head
+    while(!stopRound){
+      player = nextPlayer(player)
+      player ! MakeDecision
+      receive
+    }
+    if(playerMap.values.count(_.inGame)==1) STOP
+    else CONTINUE
   }
 
   def dealFlop = {
@@ -87,15 +98,16 @@ case class Game(ordering:List[ActorRef],playerNames:List[String],blindAmount: In
 
     case Bet(amount) => registerBet(playerMap,sender,amount)
 
-    case Call(amount) => registerBet(playerMap,sender,amount)
+    case Call(amount) => registerCall(playerMap,sender,amount)
 
-    case Check =>
+    case Check => registerFold(playerMap,sender)
 
     case Fold => registerFold(playerMap,sender)
   }
 }
-object Decision extends Enumeration{
-  type Decision = Value
+
+object RoundDecision extends Enumeration{
+  type RoundDecision = Value
   val STOP,CONTINUE = Value
 }
 

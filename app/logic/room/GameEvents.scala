@@ -14,7 +14,8 @@ object GameEvents {
 
   sealed trait Event
 
-  case class StartGame(players: Map[ActorRef,PlayerRef]) extends Event
+  case class StartGame(players:List[ActorRef])extends Event
+  case class GameStarted(players: Map[ActorRef,PlayerRef]) extends Event
   case class SetBlindAmount(blindAmount: Int) extends Event
   case class PutBlind(blind: Blind) extends Event
   case object MakeDecision extends Event
@@ -32,19 +33,27 @@ object GameEvents {
 
 
 
-  sealed class DecisionEvent extends GameEvents.Event
+  sealed abstract class Decision extends GameEvents.Event
 
-  case class Bet(amount: Int) extends DecisionEvent
-  case class Call(amount: Int) extends DecisionEvent
-  case object Check extends DecisionEvent
-  case object Fold extends DecisionEvent
+  case class Bet(amount: Int) extends Decision
+  case class Call(amount: Int) extends Decision
+  case object Check extends Decision
+  case object Fold extends Decision
+  case object NotActedYet extends Decision
 
 
 
-  def registerBet(playerMap:Map[ActorRef,PlayerRef],player: ActorRef, amount: Int) = playerMap(player).lastBet = amount
+  def registerBet(playerMap:Map[ActorRef,PlayerRef],player: ActorRef, amount: Int) = playerMap(player).lastDecision=Bet(amount)
 
-  def registerFold(playerMap:Map[ActorRef,PlayerRef],player: ActorRef) = playerMap(player).inGame = false
+  def registerCall(playerMap:Map[ActorRef,PlayerRef],player: ActorRef, amount: Int) = playerMap(player).lastDecision=Call(amount)
 
-  def discardBets(playerMap:Map[ActorRef,PlayerRef]) = for(playerRef<-playerMap.values) playerRef.lastBet = 0
+  def registerFold(playerMap:Map[ActorRef,PlayerRef],player: ActorRef) = {
+    playerMap(player).lastDecision = Fold
+    playerMap(player).inGame = false
+  }
+
+  def registerCheck(playerMap:Map[ActorRef,PlayerRef],player: ActorRef) = playerMap(player).lastDecision = Check
+
+  def prepareForNextRound(playerMap:Map[ActorRef,PlayerRef]) = for(playerRef<-playerMap.values) playerRef.lastDecision=NotActedYet
 
 }

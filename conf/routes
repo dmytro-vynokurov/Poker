@@ -4,8 +4,12 @@
 
 # Home page
 
-
-GET        /                    controllers.Application.index
+GET         /                    controllers.Application.index
+POST        /start               controllers.Application.startGame
+POST        /fold                controllers.Application.fold
+POST        /check               controllers.Application.check
+POST        /bet         controllers.Application.bet
+POST        /call        controllers.Application.call
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file        controllers.Assets.at(path="/public", file)

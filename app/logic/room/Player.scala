@@ -18,7 +18,7 @@ case class Player(name: String, game: ActorRef) extends Actor{
   var blindAmount: Int = 0
 
   //TODO: create logic for AI and business logic for user
-  def makeDecision(hand: Hand):DecisionEvent = ???
+  def makeDecision(hand: Hand):Decision = ???
 
   def sendEvent(e:Event) = {
     for(player<-playerMap.keys) player ! e
@@ -27,7 +27,7 @@ case class Player(name: String, game: ActorRef) extends Actor{
 
   def receive: Actor.Receive = {
 
-    case StartGame(p) => playerMap = p
+    case GameStarted(p) => playerMap = p
 
     case SetBlindAmount(ba) => blindAmount = ba
 
@@ -40,12 +40,14 @@ case class Player(name: String, game: ActorRef) extends Actor{
 
     case DealTable(t) => {
       table = t
-      discardBets(playerMap)
+      prepareForNextRound(playerMap)
     }
 
     case Bet(amount) => registerBet(playerMap,sender,amount)
 
-    case Call(amount) => registerBet(playerMap,sender,amount)
+    case Call(amount) => registerCall(playerMap,sender,amount)
+
+    case Check => registerFold(playerMap,sender)
 
     case Fold => registerFold(playerMap,sender)
 
