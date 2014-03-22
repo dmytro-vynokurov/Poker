@@ -7,16 +7,5 @@ package logic.dss
  */
 object RuleSatisfiedTester {
 
-  def ruleSatisfied(facts: List[Fact], rule: Rule): Boolean = {
-    containsAll(facts, rule.left)
-  }
-
-  def containsAll(largerList: List[Fact], smallerList: List[Fact]): Boolean = {
-    var tempFirst = smallerList
-    while (!tempFirst.isEmpty) {
-      if (!largerList.contains(tempFirst.head)) return false
-      tempFirst = tempFirst.tail
-    }
-    true
-  }
+  def ruleSatisfied(facts: List[Fact], rule: Rule): Boolean = rule.left.forall(e=>facts.contains(e))
 }
