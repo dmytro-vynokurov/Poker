@@ -1,6 +1,21 @@
-This is your new Play application
+This is my Poker application
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+This Poker application is written in Scala using Play 2 Framework
+Current development version of Play is 2.2.0
 
-This file was modified by IntelliJ IDEA 12.1.4 for binding GitHub repository
+This application provides AI for computer player based on
+Decision Support System. And one of various DSS implementations may be used
+with minor changes to source code of the game model.
+
+Currently the application is under development.
+
+To start the app:
+ - install Play 2.2.0
+ - checkout the project
+ - navigate to the project directory
+ - from command line run "play run" (without quotes)
+
+
+
+
