@@ -1,7 +1,10 @@
-package src.game
+package logic.game
 
 import org.specs2.mutable.Specification
 import BasicCombinationsExtractor._
+import logic.game.Number._
+import logic.game.Suit._
+import logic.game.Combination._
 
 /**
  * User: Dmitry

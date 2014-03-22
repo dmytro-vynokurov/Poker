@@ -1,4 +1,4 @@
-package src.dss
+package logic.dss
 
 import org.specs2.mutable.Specification
 import StraightFinder._
